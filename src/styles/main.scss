@@ -45,16 +45,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: $cell-size;
+  height: $cell-size;
+  border: $border solid black;
+  background-color: $dayColor;
 
   @for $i from 1 through 31 {
-    &--#{$i} {
-      width: $cell-size;
-      height: $cell-size;
-      border: $border solid black;
-      background-color: $dayColor;
-    }
-
-    &--#{$i}::before {
+    &:nth-child(#{$i})::before {
       content: '#{$i}';
       font-family: Arial, sans-serif;
       font-size: 30px;

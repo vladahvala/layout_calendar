@@ -5,7 +5,8 @@ $month-lengths: 28, 29, 30, 31;
 $cell-size: 100px;
 $border: 1px;
 $gap: 1px;
-$padding: 3px;
+$padding: 5px;
+$day-font-size: 30px;
 
 body {
   margin: 0;
@@ -23,7 +24,10 @@ body {
   gap: $gap;
   padding: $padding;
 
-  @each $length in $month-lengths {
+  @for $i from 1 through length($month-lengths) {
+    // stylelint-disable-next-line scss/no-global-function-names
+    $length: nth($month-lengths, $i);
+
     &--month-length-#{$length} {
       .calendar__day:nth-child(n + #{$length + 1}) {
         display: none;
@@ -50,18 +54,20 @@ body {
   border: $border solid black;
   background-color: $dayColor;
 
+  &:hover {
+    cursor: pointer;
+    background-color: $dayHoverColor;
+    transition:
+      background-color 0.5s,
+      transform 0.5s;
+    transform: translateY(-20px);
+  }
+
   @for $i from 1 through 31 {
     &:nth-child(#{$i})::before {
       content: '#{$i}';
       font-family: Arial, sans-serif;
-      font-size: 30px;
+      font-size: $day-font-size;
     }
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: $dayHoverColor;
-    transition-duration: 0.5s;
-    transform: translateY(-20px);
   }
 }
